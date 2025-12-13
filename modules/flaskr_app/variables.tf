@@ -21,3 +21,8 @@ variable "memory_limit" {
     type = number
     default = 256
 }
+
+variable "network" {
+    description = "Name of the network"
+    type = string
+}
