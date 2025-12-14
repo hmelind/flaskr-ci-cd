@@ -7,7 +7,7 @@ WORKDIR /app
 
 RUN git clone https://github.com/hmelind/flaskr-devops.git
 WORKDIR /app/flaskr-devops
-# RUN git checkout prometheus_metrics
+RUN git checkout prometheus_metrics
 
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir pytest
