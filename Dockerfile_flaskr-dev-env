@@ -7,7 +7,7 @@ WORKDIR /app
 
 RUN git clone https://github.com/hmelind/flaskr-devops.git
 WORKDIR /app/flaskr-devops
-RUN git checkout prometheus_metrics
+# RUN git checkout prometheus_metrics
 
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir pytest
@@ -19,6 +19,9 @@ EXPOSE 5000
 
 # CMD ["/bin/bash"]
 
-RUN flask --app flaskr init-db
+# Copy entrypoint that initializes DB at container start when needed
+COPY docker-entrypoint-flask.sh /usr/local/bin/docker-entrypoint-flask.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint-flask.sh
 
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint-flask.sh"]
 CMD ["flask", "--app", "flaskr", "run", "--host=0.0.0.0"]
